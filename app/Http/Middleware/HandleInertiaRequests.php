@@ -37,7 +37,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'user' => auth()->user(),
+            'meilisearch_url' => config('scout.meilisearch.host'),
+            'meilisearch_key' => config('scout.meilisearch.public_key'),
         ]);
     }
 }

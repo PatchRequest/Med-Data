@@ -41,20 +41,20 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                 </PrimaryButton>
 
                 <div>
-                    <Link
+                    <InertiaLink
                         :href="route('profile.show')"
                         class="underline text-sm text-gray-600 hover:text-gray-900"
                     >
-                        Edit Profile</Link>
+                        Edit Profile</InertiaLink>
 
-                    <Link
+                    <InertiaLink
                         :href="route('logout')"
                         method="post"
                         as="button"
                         class="underline text-sm text-gray-600 hover:text-gray-900 ml-2"
                     >
                         Log Out
-                    </Link>
+                    </InertiaLink>
                 </div>
             </div>
         </form>

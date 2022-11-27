@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +60,22 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function searchableAs()
+    {
+        return 'doctors';
+    }
+
+    public function getProfilePhotoUrlAttribute() {
+        if(empty($this->profile_photo_url)){
+            return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=200&d=mp';
+        }
+
+        return $this->profile_photo_url;
+    }
+
+    public function shouldBeSearchable() {
+        return $this->is_doctor;
+    }
+
 }
